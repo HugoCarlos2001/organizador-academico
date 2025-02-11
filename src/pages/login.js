@@ -41,23 +41,23 @@ export default function Login() {
 
     return (
         <div className={styles.container}>
+            <p className={styles.title}>Organizador Acadêmico</p>
             <div className={styles.card}>
-                <h1 className={styles.title}>Bem-vindo!</h1>
-                <p className={styles.subtitle}>
-                    Acesse sua conta para continuar
-                </p>
+                <p className={styles.titleCard}>Login</p>
 
+                <p className={styles.inputText}>Email</p>
                 <input
                     type="email"
-                    placeholder="Email"
+                    placeholder=""
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={styles.input}
                 />
 
+                <p className={styles.inputText}>Senha</p>
                 <input
                     type="password"
-                    placeholder="Senha"
+                    placeholder=""
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className={styles.input}
@@ -70,17 +70,16 @@ export default function Login() {
                     className={styles.button}
                     disabled={loading}
                 >
-                    {loading ? "Entrando..." : "Entrar"}
+                    {loading ? "Acessando..." : "Acessar Conta"}
                 </button>
 
                 {/* Link para a tela de Cadastro */}
                 <div className={styles.registerLink}>
-                    <p>Não tem uma conta?</p>
                     <button
                         onClick={() => router.push("/register")}
                         className={styles.linkButton}
                     >
-                        Cadastre-se
+                        Não possui uma conta? Faça o seu cadastro!
                     </button>
                 </div>
             </div>
