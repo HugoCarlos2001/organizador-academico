@@ -140,9 +140,16 @@ export default function SemestreDetalhes() {
     return (
         <div className={styles.container}>
             <div className={styles.card}>
+                
                 <h1 className={styles.title}>
                     {semestreNome || "Carregando..."}
                 </h1>
+                <button
+                        onClick={handleDeleteSemestre}
+                        className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
+                    >
+                        Excluir Semestre
+                    </button>
 
                 {error && <p className={styles.error}>{error}</p>}
 
@@ -190,12 +197,7 @@ export default function SemestreDetalhes() {
                     >
                         Voltar
                     </button>
-                    <button
-                        onClick={handleDeleteSemestre}
-                        className={`${styles.button} ${styles.deleteButton}`}
-                    >
-                        Excluir Semestre
-                    </button>
+                    
                 </div>
             </div>
         </div>

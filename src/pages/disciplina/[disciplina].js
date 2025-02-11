@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "../../styles/course.module.css";
+import styles from "../../styles/disciplina.module.css";
 
 export default function DisciplinaDetalhes() {
     const router = useRouter();
@@ -66,6 +66,13 @@ export default function DisciplinaDetalhes() {
                     {nomeDisciplina || "Carregando..."}
                 </h1>
 
+                <button
+                        onClick={handleDeleteDisciplina}
+                        className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
+                    >
+                        Excluir Disciplina
+                    </button>
+
                 {error && <p className={styles.error}>{error}</p>}
 
                 <div className={styles.form}>
@@ -78,9 +85,9 @@ export default function DisciplinaDetalhes() {
                     />
                     <button
                         onClick={handleAddItem}
-                        className={`${styles.button} ${styles.addButton}`}
+                        className={`${styles.addButton} ${styles.addButtonStyle}`}
                     >
-                        Adicionar Item
+                        Ok
                     </button>
                 </div>
 
@@ -106,16 +113,11 @@ export default function DisciplinaDetalhes() {
                                 `/semestre/${localStorage.getItem("semestreId")}`
                             )
                         }
-                        className={`${styles.button} ${styles.backButton}`}
+                        className={`${styles.backButton} ${styles.backButtonStyle}`}
                     >
                         Voltar
                     </button>
-                    <button
-                        onClick={handleDeleteDisciplina}
-                        className={`${styles.button} ${styles.deleteButton}`}
-                    >
-                        Excluir Disciplina
-                    </button>
+                    
                 </div>
             </div>
         </div>
