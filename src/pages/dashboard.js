@@ -47,14 +47,14 @@ export default function Dashboard() {
                         onClick={handleNavigateToCourse}
                         className={`${styles.button} ${styles.viewCourseButton}`}
                     >
-                        ACESSAR CURSO
+                        Acessar Curso
                     </button>
 
                     {/* Botão de logout */}
                     <button
                         className={`${styles.button} ${styles.logoutButton}`}
                     >
-                        SAIR
+                        Sair
                     </button>
                 </div>
             </div>

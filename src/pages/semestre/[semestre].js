@@ -165,7 +165,7 @@ export default function SemestreDetalhes() {
                         onClick={handleAddDisciplina}
                         className={`${styles.addButton} ${styles.addButtonStyle}`}
                     >
-                        OK
+                        Ok
                     </button>
                 </div>
 
