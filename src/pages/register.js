@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import styles from "../styles/login.module.css"; // Usando o mesmo estilo
+import styles from "../styles/register.module.css";
 
 export default function Register() {
     const router = useRouter();
@@ -57,37 +57,41 @@ export default function Register() {
 
     return (
         <div className={styles.container}>
+            <p className={styles.title}>Organizador Acadêmico</p>
             <div className={styles.card}>
-                <h1 className={styles.title}>Cadastro</h1>
-                <p className={styles.subtitle}>Crie uma nova conta</p>
+                <p className={styles.titleCard}>Cadastro</p>
 
+                <p className={styles.inputText}>Nome</p>
                 <input
                     type="text"
-                    placeholder="Nome"
+                    placeholder=""
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className={styles.input}
                 />
 
+                <p className={styles.inputText}>Email</p>
                 <input
                     type="email"
-                    placeholder="Email"
+                    placeholder=""
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={styles.input}
                 />
 
+                <p className={styles.inputText}>Senha</p>
                 <input
                     type="password"
-                    placeholder="Senha"
+                    placeholder=""
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className={styles.input}
                 />
 
+                <p className={styles.inputText}>Confirmar Senha</p>
                 <input
                     type="password"
-                    placeholder="Confirmar Senha"
+                    placeholder=""
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     className={styles.input}
@@ -100,16 +104,15 @@ export default function Register() {
                     className={styles.button}
                     disabled={loading}
                 >
-                    {loading ? "Cadastrando..." : "Cadastrar"}
+                    {loading ? "Cadastrando..." : "Criar Conta"}
                 </button>
 
                 <div className={styles.registerLink}>
-                    <p>Já tem uma conta?</p>
                     <button
                         onClick={() => router.push("/login")}
                         className={styles.linkButton}
                     >
-                        Faça Login
+                        Já possui uma conta? Faça o seu login!
                     </button>
                 </div>
             </div>
