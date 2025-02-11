@@ -1,40 +1,50 @@
-/* Estilos para o layout do dashboard */
 .dashboardContainer {
     min-height: 100vh;
-    background: linear-gradient(to right, #3b82f6, #14b8a6); /* Gradiente azul para verde */
+    background-color: #B5AAAA;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
   }
+
+  .title {
+    font-size: 70;
+    font-family: 'Segoe UI';
+    color: black;
+    margin-top: -70;
+    margin-bottom: 70;
+  }
   
-  /* Cartão centralizado */
   .dashboardCard {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    max-width: 25rem;
-    width: 100%;
+    background-color: #D9D9D9;
+    align-self: center;
+    border: 3px solid #000000;
+    border-color: black;
+    border-radius: 50px;
+    width: 804;
+    height: 505;
+    text-align: center;
   }
   
   /* Título */
-  .dashboardTitle {
+  .titleCard {
     font-size: 2rem;
-    font-weight: 800;
-    text-align: center;
-    color: #4b5563; /* Cor cinza escuro */
-    margin-bottom: 1rem;
+    font-family: 'Segoe UI';
+    color: black;
+    margin-top: 60;
   }
   
   /* Botões */
   .button {
-    width: 100%;
+    width: 459;
+    height: 77;
     padding: 1rem;
     text-align: center;
-    border-radius: 8px;
-    font-weight: 600;
+    border-radius: 25px;
+    font-family: 'Segoe UI';
+    font-size: 30;
+    font-style: 'bold';
     transition: all 0.3s ease;
     margin-top: 60;
     align-items: center;
@@ -42,23 +52,23 @@
   
   /* Botão de visão de curso */
   .viewCourseButton {
-    background-color: #2563eb; /* Azul */
+    background-color: #030350; /* Azul */
     align-self: center;
     color: white;
   }
   
   .viewCourseButton:hover {
-    background-color: #1d4ed8; /* Azul mais escuro */
+    background-color: #2f2f8b; /* Azul mais escuro */
   }
   
   /* Botão de logout */
   .logoutButton {
-    background-color: #ef4444; /* Vermelho */
+    background-color: #500303; /* Vermelho */
     color: white;
   }
   
   .logoutButton:hover {
-    background-color: #dc2626; /* Vermelho mais escuro */
+    background-color: #b82d2d; /* Vermelho mais escuro */
   }
 
   /* Estilos específicos para a página de curso */

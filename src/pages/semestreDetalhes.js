@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import styles from "../styles/course.module.css";
+import styles from "../styles/semestre.module.css";
 
 export default function SemestreDetalhes() {
   const router = useRouter();
@@ -46,7 +46,7 @@ export default function SemestreDetalhes() {
           )}
         </ul>
 
-        <button onClick={() => router.push("/curso")} className={`${styles.button} ${styles.backButton}`}>
+        <button onClick={() => router.push("/curso")} className={`${styles.backButton} ${styles.backButtonStyle}`}>
           Voltar
         </button>
       </div>

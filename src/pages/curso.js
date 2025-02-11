@@ -100,43 +100,42 @@ export default function Curso() {
     return (
         <div className={styles.container}>
             <div className={styles.card}>
-                <h1 className={styles.title}>Cadastro de Semestres</h1>
+                <h1 className={styles.title}>{selectedCurso?.nome}</h1>
 
                 <div className={styles.form}>
-                    <label>Curso:</label>
-                    <input
-                        type="text"
-                        value={selectedCurso?.nome || "Nenhum curso carregado"}
-                        readOnly
-                        className={styles.input}
-                    />
 
-                    <input
-                        type="text"
-                        value={semestreNome}
-                        onChange={(e) => setSemestreNome(e.target.value)}
-                        placeholder="Nome do semestre"
-                        className={styles.input}
-                    />
-                    <input
-                        type="text"
-                        value={semestreCodigo}
-                        onChange={(e) => setSemestreCodigo(e.target.value)}
-                        placeholder="Código do semestre"
-                        className={styles.input}
-                    />
+                    <div className={styles.statusForm}>
+                        <p className={styles.inputTitle}>Cadastrar semestres</p>
+                        <input
+                            type="text"
+                            value={semestreNome}
+                            onChange={(e) => setSemestreNome(e.target.value)}
+                            placeholder="Nome do semestre"
+                            className={styles.input}
+                        />
+
+                        <input
+                            type="text"
+                            value={semestreCodigo}
+                            onChange={(e) => setSemestreCodigo(e.target.value)}
+                            placeholder="Código do semestre"
+                            className={styles.input}
+                        />
+
+                    </div>
+
                     <button
                         onClick={handleAddSemestre}
-                        className={`${styles.button} ${styles.addButton}`}
+                        className={`${styles.addButton} ${styles.addButtonStyle}`}
                     >
-                        Adicionar Semestre
+                        OK
                     </button>
                     {error && <p className={styles.error}>{error}</p>}
                 </div>
 
                 {/* Lista de Semestres */}
                 <div className={styles.semestreList}>
-                    <h2 className={styles.subTitle}>Semestres Cadastrados:</h2>
+                    <p className={styles.subTitle}>SEMESTRES CADASTRADOS:</p>
                     <ul>
                         {semestres.length === 0 ? (
                             <li className={styles.semestreListItem}>
@@ -159,7 +158,7 @@ export default function Curso() {
                     </ul>
                 </div>
 
-                <button className={`${styles.button} ${styles.logoutButton}`}>
+                <button className={`${styles.logoutButton} ${styles.logoutButtonStyle}`}>
                     Sair
                 </button>
             </div>

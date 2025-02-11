@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import styles from "../../styles/course.module.css";
+import styles from "../../styles/semestre.module.css";
 
 export default function SemestreDetalhes() {
     const router = useRouter();
@@ -140,9 +140,16 @@ export default function SemestreDetalhes() {
     return (
         <div className={styles.container}>
             <div className={styles.card}>
+                
                 <h1 className={styles.title}>
                     {semestreNome || "Carregando..."}
                 </h1>
+                <button
+                        onClick={handleDeleteSemestre}
+                        className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
+                    >
+                        Excluir Semestre
+                    </button>
 
                 {error && <p className={styles.error}>{error}</p>}
 
@@ -156,13 +163,13 @@ export default function SemestreDetalhes() {
                     />
                     <button
                         onClick={handleAddDisciplina}
-                        className={`${styles.button} ${styles.addButton}`}
+                        className={`${styles.addButton} ${styles.addButtonStyle}`}
                     >
-                        Adicionar Disciplina
+                        Ok
                     </button>
                 </div>
 
-                <h2 className={styles.subTitle}>Disciplinas cadastradas:</h2>
+                <h2 className={styles.subTitle}>DISCIPLINAS CADASTRADAS:</h2>
                 <ul>
                     {disciplinas.length === 0 ? (
                         <li className={styles.semestreListItem}>
@@ -186,16 +193,11 @@ export default function SemestreDetalhes() {
                 <div className={styles.actions}>
                     <button
                         onClick={() => router.push("/curso")}
-                        className={`${styles.button} ${styles.backButton}`}
+                        className={`${styles.backButton} ${styles.backButtonStyle}`}
                     >
                         Voltar
                     </button>
-                    <button
-                        onClick={handleDeleteSemestre}
-                        className={`${styles.button} ${styles.deleteButton}`}
-                    >
-                        Excluir Semestre
-                    </button>
+                    
                 </div>
             </div>
         </div>
