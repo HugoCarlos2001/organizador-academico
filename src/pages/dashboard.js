@@ -36,8 +36,10 @@ export default function Dashboard() {
 
     return (
         <div className={styles.dashboardContainer}>
+            <p className={styles.title}>Organizador Acadêmico</p>
+            
             <div className={styles.dashboardCard}>
-                <h1 className={styles.dashboardTitle}>Bem-vindo!</h1>
+                <h1 className={styles.titleCard}>Seja Bem-vindo!</h1>
 
                 <div className="flex flex-col items-center gap-4">
                     {/* Botão para visão de curso */}
@@ -45,14 +47,14 @@ export default function Dashboard() {
                         onClick={handleNavigateToCourse}
                         className={`${styles.button} ${styles.viewCourseButton}`}
                     >
-                        Ver Visão de Curso
+                        ACESSAR CURSO
                     </button>
 
                     {/* Botão de logout */}
                     <button
                         className={`${styles.button} ${styles.logoutButton}`}
                     >
-                        Sair
+                        SAIR
                     </button>
                 </div>
             </div>
