@@ -139,21 +139,11 @@ export default function SemestreDetalhes() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.card}>
-                
+            <div className={styles.form}>
                 <h1 className={styles.title}>
                     {semestreNome || "Carregando..."}
                 </h1>
-                <button
-                        onClick={handleDeleteSemestre}
-                        className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
-                    >
-                        Excluir Semestre
-                    </button>
-
-                {error && <p className={styles.error}>{error}</p>}
-
-                <div className={styles.form}>
+                <div className={styles.inputForms}>
                     <input
                         type="text"
                         value={disciplinaNome}
@@ -168,7 +158,9 @@ export default function SemestreDetalhes() {
                         Ok
                     </button>
                 </div>
+                {error && <p className={styles.error}>{error}</p>}
 
+                <div className={styles.semestreList}>
                 <h2 className={styles.subTitle}>DISCIPLINAS CADASTRADAS:</h2>
                 <ul>
                     {disciplinas.length === 0 ? (
@@ -189,17 +181,21 @@ export default function SemestreDetalhes() {
                         ))
                     )}
                 </ul>
-
-                <div className={styles.actions}>
-                    <button
+                </div>
+            </div>
+                <button
+                        onClick={handleDeleteSemestre}
+                        className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
+                    >
+                        Excluir Semestre
+                    </button>
+                <button
                         onClick={() => router.push("/curso")}
                         className={`${styles.backButton} ${styles.backButtonStyle}`}
                     >
                         Voltar
                     </button>
-                    
-                </div>
-            </div>
+                
         </div>
     );
 }

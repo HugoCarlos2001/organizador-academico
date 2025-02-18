@@ -99,11 +99,10 @@ export default function Curso() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.card}>
-                <h1 className={styles.title}>{selectedCurso?.nome}</h1>
 
                 <div className={styles.form}>
-
+                    <h1 className={styles.title}>{selectedCurso?.nome}</h1>
+                    <div className={styles.inputForms}> 
                     <div className={styles.statusForm}>
                         <p className={styles.inputTitle}>Cadastrar semestres</p>
                         <input
@@ -121,7 +120,6 @@ export default function Curso() {
                             placeholder="Código do semestre"
                             className={styles.input}
                         />
-
                     </div>
 
                     <button
@@ -131,10 +129,8 @@ export default function Curso() {
                         OK
                     </button>
                     {error && <p className={styles.error}>{error}</p>}
-                </div>
-
-                {/* Lista de Semestres */}
-                <div className={styles.semestreList}>
+                    </div>
+                    <div className={styles.semestreList}>
                     <p className={styles.subTitle}>SEMESTRES CADASTRADOS:</p>
                     <ul>
                         {semestres.length === 0 ? (
@@ -153,15 +149,17 @@ export default function Curso() {
                                     {semestre.nome} - {semestre.codigo} (ID:{" "}
                                     {semestre.id})
                                 </li>
+
                             ))
                         )}
                     </ul>
                 </div>
+                </div>
 
+                {/* Lista de Semestres */}
                 <button className={`${styles.logoutButton} ${styles.logoutButtonStyle}`}>
                     Sair
                 </button>
-            </div>
-        </div>
+        </div>  
     );
 }
