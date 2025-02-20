@@ -183,7 +183,8 @@ export default function SemestreDetalhes() {
                 </ul>
                 </div>
             </div>
-                <button
+
+            <button
                         onClick={handleDeleteSemestre}
                         className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
                     >
@@ -194,7 +195,7 @@ export default function SemestreDetalhes() {
                         className={`${styles.backButton} ${styles.backButtonStyle}`}
                     >
                         Voltar
-                    </button>
+                    </button >
                 
         </div>
     );
