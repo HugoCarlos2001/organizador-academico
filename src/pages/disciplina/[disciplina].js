@@ -61,52 +61,20 @@ export default function DisciplinaDetalhes() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.card}>
+
+                <div className={styles.form}>
                 <h1 className={styles.title}>
                     {nomeDisciplina || "Carregando..."}
                 </h1>
-
+                {error && <p className={styles.error}>{error}</p>}
+                </div>
+                
                 <button
                         onClick={handleDeleteDisciplina}
                         className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
                     >
                         Excluir Disciplina
-                    </button>
-
-                {error && <p className={styles.error}>{error}</p>}
-
-                <div className={styles.form}>
-                    <input
-                        type="text"
-                        value={itemNome}
-                        onChange={(e) => setItemNome(e.target.value)}
-                        placeholder="Nome do item"
-                        className={styles.input}
-                    />
-                    <button
-                        onClick={handleAddItem}
-                        className={`${styles.addButton} ${styles.addButtonStyle}`}
-                    >
-                        Ok
-                    </button>
-                </div>
-
-                <h2 className={styles.subTitle}>Itens cadastrados:</h2>
-                <ul>
-                    {itens.length === 0 ? (
-                        <li className={styles.semestreListItem}>
-                            Nenhum item cadastrado.
-                        </li>
-                    ) : (
-                        itens.map((item, index) => (
-                            <li key={index} className={styles.semestreListItem}>
-                                {item}
-                            </li>
-                        ))
-                    )}
-                </ul>
-
-                <div className={styles.actions}>
+                </button>
                     <button
                         onClick={() =>
                             router.push(
@@ -118,8 +86,7 @@ export default function DisciplinaDetalhes() {
                         Voltar
                     </button>
                     
-                </div>
-            </div>
+                
         </div>
     );
 }
