@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
 import styles from "../../styles/semestre.module.css";
 
 export default function SemestreDetalhes() {
@@ -9,8 +11,9 @@ export default function SemestreDetalhes() {
     const [disciplinas, setDisciplinas] = useState([]);
     const [disciplinaNome, setDisciplinaNome] = useState("");
     const [error, setError] = useState("");
+    const [date, setDate] = useState(new Date());
+    const [events, setEvents] = useState([]);
 
-    // Carregar o ID e o nome do semestre do localStorage
     useEffect(() => {
         const id = localStorage.getItem("semestreId");
         const nome = localStorage.getItem("semestreNome");
@@ -20,13 +23,12 @@ export default function SemestreDetalhes() {
             setSemestreNome(nome);
         } else {
             setError("Semestre não encontrado.");
-            router.push("/curso"); // Redireciona de volta se não houver dados
+            router.push("/curso");
         }
     }, [router]);
 
-    // Carregar as disciplinas do semestre
     useEffect(() => {
-        if (!semestreId) return; // Sai se o ID do semestre não estiver disponível
+        if (!semestreId) return;
 
         fetch(`https://organizador-academico-be.onrender.com/cadeiras/semestre/${semestreId}`, {
             method: "GET",
@@ -40,24 +42,18 @@ export default function SemestreDetalhes() {
                 if (data.error) {
                     setError(data.error);
                 } else {
-                    setDisciplinas(data); // Define a lista de disciplinas
+                    setDisciplinas(data);
                 }
             })
             .catch(() => setError("Erro ao carregar disciplinas"));
-    }, [semestreId]); // Executa sempre que o ID do semestre mudar
+    }, [semestreId]);
 
-    // Função para gerar o código da disciplina
     const gerarCodigoDisciplina = (nome) => {
-        // Pega as iniciais do nome da disciplina
         const iniciais = nome
             .split(" ")
             .map((palavra) => palavra[0].toUpperCase())
             .join("");
-
-        // Gera um número sequencial baseado no número de disciplinas já cadastradas
         const numeroSequencial = disciplinas.length + 1;
-
-        // Retorna o código no formato "INICIAIS + NÚMERO" (ex: "ES101")
         return `${iniciais}${numeroSequencial.toString().padStart(3, "0")}`;
     };
 
@@ -68,7 +64,6 @@ export default function SemestreDetalhes() {
         }
 
         try {
-            // Gera o código da disciplina
             const codigo = gerarCodigoDisciplina(disciplinaNome);
 
             const response = await fetch(
@@ -81,7 +76,7 @@ export default function SemestreDetalhes() {
                     },
                     body: JSON.stringify({
                         nome: disciplinaNome,
-                        codigo: codigo, // Código gerado automaticamente
+                        codigo: codigo,
                     }),
                 }
             );
@@ -92,7 +87,7 @@ export default function SemestreDetalhes() {
                 throw new Error(data.message || "Erro ao adicionar disciplina");
             }
 
-            setDisciplinas((prev) => [...prev, data]); // Adiciona a nova disciplina à lista
+            setDisciplinas((prev) => [...prev, data]);
             setDisciplinaNome("");
             setError("");
         } catch (error) {
@@ -101,11 +96,8 @@ export default function SemestreDetalhes() {
     };
 
     const handleNavigateToDisciplina = (disciplina) => {
-        // Armazena o ID e o nome da disciplina no localStorage
         localStorage.setItem("disciplinaId", disciplina.id);
         localStorage.setItem("disciplinaNome", disciplina.nome);
-
-        // Navega para a página da disciplina
         router.push(`/disciplina/${disciplina.id}`);
     };
 
@@ -126,16 +118,28 @@ export default function SemestreDetalhes() {
                 throw new Error("Erro ao excluir semestre");
             }
 
-            // Remove os dados do localStorage
             localStorage.removeItem("semestreId");
             localStorage.removeItem("semestreNome");
-
-            // Redireciona para a página de curso
             router.push("/curso");
         } catch (error) {
             setError(error.message);
         }
     };
+
+    // Função para adicionar evento ao selecionar uma data
+    const handleDateSelect = (selectedDate) => {
+        setDate(selectedDate);
+        const disciplina = prompt("Insira a descrição ou nome do evento associado à data:");
+        if (disciplina) {
+            const novoEvento = {
+                title: disciplina, // Sem prefixo "Evento de"
+                date: selectedDate.toLocaleDateString("pt-BR"), // Formata a data para DIA/MÊS/ANO
+                disciplineId: disciplina, // Se necessário, pode manter ou ajustar conforme a lógica desejada
+            };
+            setEvents((prevEvents) => [...prevEvents, novoEvento]);
+        }
+    };
+    
 
     return (
         <div className={styles.container}>
@@ -161,42 +165,58 @@ export default function SemestreDetalhes() {
                 {error && <p className={styles.error}>{error}</p>}
 
                 <div className={styles.semestreList}>
-                <h2 className={styles.subTitle}>DISCIPLINAS CADASTRADAS:</h2>
-                <ul>
-                    {disciplinas.length === 0 ? (
-                        <li className={styles.semestreListItem}>
-                            Nenhuma disciplina cadastrada.
-                        </li>
-                    ) : (
-                        disciplinas.map((disciplina) => (
-                            <li
-                                key={disciplina.id}
-                                className={styles.semestreListItem}
-                                onClick={() =>
-                                    handleNavigateToDisciplina(disciplina)
-                                }
-                            >
-                                {disciplina.nome} - {disciplina.codigo}
+                    <h2 className={styles.subTitle}>DISCIPLINAS CADASTRADAS:</h2>
+                    <ul>
+                        {disciplinas.length === 0 ? (
+                            <li className={styles.semestreListItem}>
+                                Nenhuma disciplina cadastrada.
                             </li>
-                        ))
-                    )}
-                </ul>
+                        ) : (
+                            disciplinas.map((disciplina) => (
+                                <li
+                                    key={disciplina.id}
+                                    className={styles.semestreListItem}
+                                    onClick={() => handleNavigateToDisciplina(disciplina)}
+                                >
+                                    {disciplina.nome} - {disciplina.codigo}
+                                </li>
+                            ))
+                        )}
+                    </ul>
                 </div>
             </div>
 
             <button
-                        onClick={handleDeleteSemestre}
-                        className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
-                    >
-                        Excluir Semestre
-                    </button>
-                <button
-                        onClick={() => router.push("/curso")}
-                        className={`${styles.backButton} ${styles.backButtonStyle}`}
-                    >
-                        Voltar
-                    </button >
-                
+                onClick={handleDeleteSemestre}
+                className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
+            >
+                Excluir Semestre
+            </button>
+            <button
+                onClick={() => router.push("/curso")}
+                className={`${styles.backButton} ${styles.backButtonStyle}`}
+            >
+                Voltar
+            </button>
+
+            {/* Calendário simples com react-calendar */}
+            <div className={styles.calendarContainer}>
+                    <Calendar
+                        onChange={handleDateSelect}
+                        value={date}
+                    />
+                    {/* Exemplo para exibir eventos cadastrados */}
+                    <div className={styles.eventList}>
+                        <h3>Eventos cadastrados:</h3>
+                        <ul>
+                            {events.map((evento, index) => (
+                                <li key={index}>
+                                    {evento.date}: {evento.title}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
         </div>
     );
 }
