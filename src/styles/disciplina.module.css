@@ -12,7 +12,7 @@ align-items: center;
 .title {
   font-size: 2rem;
   font-weight: bold;
-  margin-top: 10;
+  margin-top: 20;
   color: #333;
 }
 
@@ -30,7 +30,6 @@ align-items: center;
   width: 100;
   height: 47;
   margin-left: 5px;
-  margin-top: 10;
   font-size: 1rem;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   border-radius: 50px;
@@ -52,7 +51,6 @@ align-items: center;
 .deleteButton {
   width: 100;
   height: 47;
-  margin-top: 10;
   font-size: 1rem;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   border-radius: 50px;
@@ -72,5 +70,44 @@ align-items: center;
 
 }
 
-.tabButtons {
+.tabButton {
+  width: 100;
+  height: 47;
+  margin-left: 5px;
+  margin-top: 10;
+  font-size: 1rem;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.planButton {
+  width: 100;
+  height: 47;
+  margin-left: 5px;
+  margin-top: 10;
+  font-size: 1rem;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.tabButtonStyle {
+  background-color: #1b1919;
+  color: white;
+  
+}
+
+.tabButton:hover {
+  background-color: #928c8c;
+
+}
+
+.tabContent {
+  margin-top: 20;
+  background-color: #fff;
+  border-radius: 50;
+  border-width: 30;
+  
+  padding: 20;
 }
