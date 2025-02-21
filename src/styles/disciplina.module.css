@@ -1,9 +1,8 @@
 /* Container principal da página */
 .container {
   display: flex;
-  
-  flex-direction: row;
-  justify-content:center;
+  flex-direction: column;
+align-items: center;
   min-height: 100vh;
   background-color: #c9c4c4;
   padding: 20px;
@@ -20,7 +19,7 @@
 /* Formulário de entrada */
 .form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 5;
   gap: 10px;
   margin-bottom: 80;
@@ -71,4 +70,7 @@
 .deleteButton:hover {
   background-color: #cf3737;
 
+}
+
+.tabButtons {
 }
