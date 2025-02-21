@@ -82,15 +82,22 @@ export default function DisciplinaDetalhes() {
 
             {/* Botões para alternar entre as funcionalidades */}
             <div>
-                <button onClick={() => setActiveTab("notebook")} className={styles.tabButtons}>
-                    Caderno
+                <button onClick={() => setActiveTab("notebook")}
+                className={`${styles.tabButton} ${styles.tabButtonStyle}`}    
+                    >
+                    Caderno Virtual
                 </button>
-                <button onClick={() => setActiveTab("studyPlan")}>
+
+                <button onClick={() => setActiveTab("studyPlan")}
+                    className={`${styles.tabButton} ${styles.tabButtonStyle}`}>
                     Plano de Estudo
                 </button>
-                <button onClick={() => setActiveTab("gradeCalc")}>
+                
+                <button onClick={() => setActiveTab("gradeCalc")}
+                    className={`${styles.tabButton} ${styles.tabButtonStyle}`}>
                     Calculadora de Notas
                 </button>
+                
             </div>
 
             {/* Renderização condicional do conteúdo da aba ativa */}
