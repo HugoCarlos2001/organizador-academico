@@ -1,33 +1,32 @@
+// pages/disciplina/[id].js (ou o arquivo que você estiver utilizando)
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "../../styles/disciplina.module.css";
 
+// Importa os componentes das funcionalidades
+import Notebook from "../../components/Notebook";
+import StudyPlan from "../../components/StudyPlan";
+import GradeCalculator from "../../components/GradeCalculator";
+
 export default function DisciplinaDetalhes() {
     const router = useRouter();
     const [nomeDisciplina, setNomeDisciplina] = useState("");
-    const [itens, setItens] = useState([]);
-    const [itemNome, setItemNome] = useState("");
     const [error, setError] = useState("");
+    // Estado para controlar a aba ativa: "notebook", "studyPlan", ou "gradeCalc"
+    const [activeTab, setActiveTab] = useState("notebook");
 
-    // Carregar o ID e o nome da disciplina do localStorage
+    // Carregar os dados da disciplina do localStorage
     useEffect(() => {
         const id = localStorage.getItem("disciplinaId");
         const nome = localStorage.getItem("disciplinaNome");
 
         if (id && nome) {
-            setNomeDisciplina(nome); // Define o nome da disciplina
+            setNomeDisciplina(nome);
         } else {
             setError("Disciplina não encontrada.");
-            router.push(`/semestre/${localStorage.getItem("semestreId")}`); // Redireciona de volta se não houver dados
+            router.push(`/semestre/${localStorage.getItem("semestreId")}`);
         }
     }, [router]);
-
-    const handleAddItem = () => {
-        if (itemNome.trim() !== "") {
-            setItens((prev) => [...prev, itemNome]);
-            setItemNome("");
-        }
-    };
 
     const handleDeleteDisciplina = async () => {
         const disciplinaId = localStorage.getItem("disciplinaId");
@@ -48,11 +47,9 @@ export default function DisciplinaDetalhes() {
                 throw new Error("Erro ao excluir disciplina");
             }
 
-            // Remove os dados do localStorage
+            // Remove os dados do localStorage e redireciona
             localStorage.removeItem("disciplinaId");
             localStorage.removeItem("disciplinaNome");
-
-            // Redireciona para a página do semestre
             router.push(`/semestre/${localStorage.getItem("semestreId")}`);
         } catch (error) {
             setError(error.message);
@@ -61,32 +58,47 @@ export default function DisciplinaDetalhes() {
 
     return (
         <div className={styles.container}>
-
-                <div className={styles.form}>
+            <div className={styles.form}>
                 <h1 className={styles.title}>
                     {nomeDisciplina || "Carregando..."}
                 </h1>
                 {error && <p className={styles.error}>{error}</p>}
-                </div>
-                
+
                 <button
-                        onClick={handleDeleteDisciplina}
-                        className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
-                    >
-                        Excluir Disciplina
+                onClick={handleDeleteDisciplina}
+                className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
+            >
+                Excluir Disciplina
                 </button>
-                    <button
-                        onClick={() =>
-                            router.push(
-                                `/semestre/${localStorage.getItem("semestreId")}`
-                            )
-                        }
-                        className={`${styles.backButton} ${styles.backButtonStyle}`}
-                    >
-                        Voltar
-                    </button>
-                    
-                
+                <button
+                    onClick={() =>
+                        router.push(`/semestre/${localStorage.getItem("semestreId")}`)
+                    }
+                    className={`${styles.backButton} ${styles.backButtonStyle}`}
+            >
+                    Voltar
+                </button>
+            </div>
+
+            {/* Botões para alternar entre as funcionalidades */}
+            <div>
+                <button onClick={() => setActiveTab("notebook")} className={styles.tabButtons}>
+                    Caderno
+                </button>
+                <button onClick={() => setActiveTab("studyPlan")}>
+                    Plano de Estudo
+                </button>
+                <button onClick={() => setActiveTab("gradeCalc")}>
+                    Calculadora de Notas
+                </button>
+            </div>
+
+            {/* Renderização condicional do conteúdo da aba ativa */}
+            <div className={styles.tabContent}>
+                {activeTab === "notebook" && <Notebook />}
+                {activeTab === "studyPlan" && <StudyPlan />}
+                {activeTab === "gradeCalc" && <GradeCalculator />}
+            </div>
         </div>
     );
 }
