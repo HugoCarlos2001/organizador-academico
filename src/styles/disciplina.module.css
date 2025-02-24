@@ -2,9 +2,10 @@
 .container {
   display: flex;
   flex-direction: column;
-align-items: center;
-  min-height: 100vh;
-  background-color: #c9c4c4;
+  justify-content: space-around;
+  min-height: 60vh;
+  align-items: center;
+  background-color: #fff;
   padding: 20px;
 }
 
@@ -12,26 +13,23 @@ align-items: center;
 .title {
   font-size: 2rem;
   font-weight: bold;
-  margin-top: 20;
-  color: #333;
+  font-family: Arial;
+  color: #000;
 }
 
 /* Formulário de entrada */
-.form {
+.headerContainer {
   display: flex;
   flex-direction: row;
-  padding: 5;
-  gap: 10px;
-  margin-bottom: 80;
-  align-items: center;
-  margin-top: 0%;
+  gap: 15px;
 }
 .backButton {
-  width: 100;
-  height: 47;
-  margin-left: 5px;
-  font-size: 1rem;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  width: 100px;
+  height: 47px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   border-radius: 50px;
   cursor: pointer;
   border: none;
@@ -39,20 +37,24 @@ align-items: center;
 }
 
 .backButtonStyle {
-  background-color: #A35F1A;
+  background-color: #aaaaaa;
   color: white;
+  margin-top: 20px;
+  justify-items: flex-end;
   
 }
 
 .backButton:hover {
-  background-color: #eb9a4a;
+  background-color: #363636;
 }
 
 .deleteButton {
-  width: 100;
-  height: 47;
-  font-size: 1rem;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  width: 100px;
+  height: 47px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   border-radius: 50px;
   cursor: pointer;
   border: none;
@@ -60,35 +62,33 @@ align-items: center;
 }
 
 .deleteButtonStyle {
-  background-color: #500303;
+  background-color: #ff0400;
   color: white;
-  
+  margin-top: 20px;
+  justify-items: flex-end;
 }
 
 .deleteButton:hover {
-  background-color: #cf3737;
+  background-color: #9b1c1c;
 
+}
+
+.tabContainer {
+  display:flex;
+  flex-direction: row;
+  gap: 5px;
 }
 
 .tabButton {
-  width: 100;
-  height: 47;
-  margin-left: 5px;
-  margin-top: 10;
-  font-size: 1rem;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  width: 100px;
+  height: 47px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   border-radius: 50px;
-  transition: background-color 0.3s ease;
-}
-
-.planButton {
-  width: 100;
-  height: 47;
-  margin-left: 5px;
-  margin-top: 10;
-  font-size: 1rem;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  border-radius: 50px;
+  cursor: pointer;
+  border: none;
   transition: background-color 0.3s ease;
 }
 
@@ -104,10 +104,7 @@ align-items: center;
 }
 
 .tabContent {
-  margin-top: 20;
   background-color: #fff;
   border-radius: 50;
   border-width: 30;
-  
-  padding: 20;
 }
