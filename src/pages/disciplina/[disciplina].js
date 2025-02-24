@@ -58,33 +58,33 @@ export default function DisciplinaDetalhes() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.form}>
+            <div className={styles.headerContainer}>
                 <h1 className={styles.title}>
                     {nomeDisciplina || "Carregando..."}
                 </h1>
                 {error && <p className={styles.error}>{error}</p>}
 
                 <button
-                onClick={handleDeleteDisciplina}
-                className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
-            >
-                Excluir Disciplina
+                    onClick={handleDeleteDisciplina}
+                    className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
+                >
+                    Excluir Disciplina
                 </button>
                 <button
                     onClick={() =>
                         router.push(`/semestre/${localStorage.getItem("semestreId")}`)
                     }
                     className={`${styles.backButton} ${styles.backButtonStyle}`}
-            >
+                >
                     Voltar
                 </button>
             </div>
 
             {/* Botões para alternar entre as funcionalidades */}
-            <div>
+            <div className={styles.tabContainer}>
                 <button onClick={() => setActiveTab("notebook")}
-                className={`${styles.tabButton} ${styles.tabButtonStyle}`}    
-                    >
+                    className={`${styles.tabButton} ${styles.tabButtonStyle}`}
+                >
                     Caderno Virtual
                 </button>
 
@@ -92,12 +92,12 @@ export default function DisciplinaDetalhes() {
                     className={`${styles.tabButton} ${styles.tabButtonStyle}`}>
                     Plano de Estudo
                 </button>
-                
+
                 <button onClick={() => setActiveTab("gradeCalc")}
                     className={`${styles.tabButton} ${styles.tabButtonStyle}`}>
                     Calculadora de Notas
                 </button>
-                
+
             </div>
 
             {/* Renderização condicional do conteúdo da aba ativa */}

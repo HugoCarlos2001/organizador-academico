@@ -126,46 +126,95 @@ export default function SemestreDetalhes() {
         }
     };
 
-    // Função para adicionar evento ao selecionar uma data
+    // Ao selecionar uma data, cria um evento armazenando a data original para ordenação
     const handleDateSelect = (selectedDate) => {
         setDate(selectedDate);
-        const disciplina = prompt("Insira a descrição ou nome do evento associado à data:");
-        if (disciplina) {
+        const descricao = prompt("Insira a descrição ou nome do evento associado à data:");
+        if (descricao) {
             const novoEvento = {
-                title: disciplina, // Sem prefixo "Evento de"
-                date: selectedDate.toLocaleDateString("pt-BR"), // Formata a data para DIA/MÊS/ANO
-                disciplineId: disciplina, // Se necessário, pode manter ou ajustar conforme a lógica desejada
+                title: descricao,
+                // Armazena a data como objeto para facilitar a ordenação
+                date: selectedDate,
+                formattedDate: selectedDate.toLocaleDateString("pt-BR"),
             };
             setEvents((prevEvents) => [...prevEvents, novoEvento]);
         }
     };
-    
+
+    // Função para editar evento
+    const handleEditEvent = (index) => {
+        const novoTitulo = prompt("Edite o título do evento:", events[index].title);
+        if (novoTitulo !== null && novoTitulo.trim() !== "") {
+            setEvents((prevEvents) => {
+                const updatedEvents = [...prevEvents];
+                updatedEvents[index].title = novoTitulo;
+                return updatedEvents;
+            });
+        }
+    };
+
+    // Função para excluir evento
+    const handleDeleteEvent = (index) => {
+        if (confirm("Deseja realmente excluir este evento?")) {
+            setEvents((prevEvents) => prevEvents.filter((_, i) => i !== index));
+        }
+    };
+
+    // Cria uma cópia ordenada dos eventos pela data
+    const sortedEvents = [...events].sort((a, b) => a.date - b.date);
 
     return (
         <div className={styles.container}>
+
             <div className={styles.form}>
-                <h1 className={styles.title}>
-                    {semestreNome || "Carregando..."}
-                </h1>
+
+                <div className={styles.headerContainer}>
+
+                    <h1 className={styles.title}>
+                        {semestreNome || "Carregando..."}
+                    </h1>
+
+                    <button
+                        onClick={handleDeleteSemestre}
+                        className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
+                    >
+                        Excluir Semestre
+                    </button>
+                    <button
+                        onClick={() => router.push("/curso")}
+                        className={`${styles.backButton} ${styles.backButtonStyle}`}
+                    >
+                        Voltar
+                    </button>
+
+                </div>
+
                 <div className={styles.inputForms}>
-                    <input
-                        type="text"
-                        value={disciplinaNome}
-                        onChange={(e) => setDisciplinaNome(e.target.value)}
-                        placeholder="Nome da disciplina"
-                        className={styles.input}
-                    />
+
+                    <div className={styles.statusForm}>
+
+                        <p className={styles.inputTitle}>Cadastrar disciplinas</p>
+                        <input
+                            type="text"
+                            value={disciplinaNome}
+                            onChange={(e) => setDisciplinaNome(e.target.value)}
+                            placeholder="Nome da disciplina"
+                            className={styles.input}
+                        />
+
+                    </div>
+
                     <button
                         onClick={handleAddDisciplina}
                         className={`${styles.addButton} ${styles.addButtonStyle}`}
                     >
-                        Ok
+                        +
                     </button>
                 </div>
                 {error && <p className={styles.error}>{error}</p>}
 
                 <div className={styles.semestreList}>
-                    <h2 className={styles.subTitle}>DISCIPLINAS CADASTRADAS:</h2>
+                    <h2 className={styles.subTitle}>Disciplinas Cadastradas:</h2>
                     <ul>
                         {disciplinas.length === 0 ? (
                             <li className={styles.semestreListItem}>
@@ -186,37 +235,36 @@ export default function SemestreDetalhes() {
                 </div>
             </div>
 
-            <button
-                onClick={handleDeleteSemestre}
-                className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
-            >
-                Excluir Semestre
-            </button>
-            <button
-                onClick={() => router.push("/curso")}
-                className={`${styles.backButton} ${styles.backButtonStyle}`}
-            >
-                Voltar
-            </button>
-
             {/* Calendário simples com react-calendar */}
-            <div className={styles.calendarContainer}>
-                    <Calendar
-                        onChange={handleDateSelect}
-                        value={date}
-                    />
-                    {/* Exemplo para exibir eventos cadastrados */}
-                    <div className={styles.eventList}>
-                        <h3>Eventos cadastrados:</h3>
-                        <ul>
-                            {events.map((evento, index) => (
-                                <li key={index}>
-                                    {evento.date}: {evento.title}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+            <div>
+                <Calendar
+                    onChange={handleDateSelect}
+                    value={date}
+                />
+                {/* Exibindo eventos cadastrados (ordenados por data) com opções de editar e excluir */}
+                <div>
+                    <h3 className={styles.inputTitle}>Eventos cadastrados:</h3>
+                    <ul>
+                        {sortedEvents.map((evento, index) => (
+                            <li key={index} className={styles.eventListItem}>
+                                {evento.formattedDate}: {evento.title}
+                                <button
+                                    onClick={() => handleEditEvent(index)}
+                                    className={styles.editButtonEvent}
+                                >
+                                    Editar
+                                </button>
+                                <button
+                                    onClick={() => handleDeleteEvent(index)}
+                                    className={styles.deleteButtonEvent}
+                                >
+                                    Excluir
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
+            </div>
         </div>
     );
 }
