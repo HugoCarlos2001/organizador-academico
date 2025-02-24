@@ -100,66 +100,73 @@ export default function Curso() {
     return (
         <div className={styles.container}>
 
-                <div className={styles.form}>
-                    <h1 className={styles.title}>{selectedCurso?.nome}</h1>
-                    <div className={styles.inputForms}> 
-                    <div className={styles.statusForm}>
-                        <p className={styles.inputTitle}>Cadastrar semestres</p>
-                        <input
+                
+
+                    <div className={styles.headerContainer}>
+                        <h1 className={styles.title}>{selectedCurso?.nome}</h1>
+                        <button className={`${styles.logoutButton} ${styles.logoutButtonStyle}`}>
+                            Sair
+                        </button>
+                    </div>
+
+
+                    <div className={styles.inputForms}>
+
+                        <div className={styles.statusForm}>
+
+                            <p className={styles.inputTitle}>Cadastrar semestres</p>
+                            <input
                             type="text"
                             value={semestreNome}
                             onChange={(e) => setSemestreNome(e.target.value)}
                             placeholder="Nome do semestre"
                             className={styles.input}
-                        />
+                            />
 
-                        <input
+                            <input
                             type="text"
                             value={semestreCodigo}
                             onChange={(e) => setSemestreCodigo(e.target.value)}
                             placeholder="Código do semestre"
                             className={styles.input}
-                        />
+                            />
+
+                        </div>
+
+                        <button
+                            onClick={handleAddSemestre}
+                            className={`${styles.addButton} ${styles.addButtonStyle}`}
+                        >
+                            +
+                        </button>
+                        {error && <p className={styles.error}>{error}</p>}
+
                     </div>
 
-                    <button
-                        onClick={handleAddSemestre}
-                        className={`${styles.addButton} ${styles.addButtonStyle}`}
-                    >
-                        OK
-                    </button>
-                    {error && <p className={styles.error}>{error}</p>}
-                    </div>
                     <div className={styles.semestreList}>
-                    <p className={styles.subTitle}>SEMESTRES CADASTRADOS:</p>
-                    <ul>
-                        {semestres.length === 0 ? (
-                            <li className={styles.semestreListItem}>
-                                Não há semestres cadastrados.
-                            </li>
-                        ) : (
+                        <p className={styles.subTitle}>Semestres Cadastrados:</p>
+                        <ul>
+                            {semestres.length === 0 ? (
+                                <li className={styles.semestreListItem}>
+                                 Não há semestres cadastrados.
+                                </li>
+                             ) : (
                             semestres.map((semestre) => (
                                 <li
                                     key={semestre.id}
                                     className={styles.semestreListItem}
                                     onClick={() =>
-                                        handleNavigateToSemestre(semestre)
-                                    }
-                                >
+                                    handleNavigateToSemestre(semestre)
+                                    }>
                                     {semestre.nome} - {semestre.codigo} (ID:{" "}
                                     {semestre.id})
                                 </li>
 
                             ))
-                        )}
-                    </ul>
-                </div>
-                </div>
-
-                {/* Lista de Semestres */}
-                <button className={`${styles.logoutButton} ${styles.logoutButtonStyle}`}>
-                    Sair
-                </button>
+                            )}
+                        </ul>
+                    </div>
+                
         </div>  
     );
 }

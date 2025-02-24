@@ -1,17 +1,26 @@
 /* Container principal da página */
 .container {
   display: flex;
-  flex-direction: row;
-  justify-content:center;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
-  background-color: #c9c4c4;
+  background-color: #fff;
   padding: 20px;
 }
+
+.headerContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  gap: 15px;
+}
+
 /* Título principal */
 .title {
   font-size: 2rem;
   font-weight: bold;
-  color: #333;
+  font-family:  Arial;
+  color: #000;
 }
 
 /* Formulário de entrada */
@@ -28,6 +37,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 15px;
 }
 
 .statusForm {
@@ -39,6 +49,7 @@
 .inputTitle{
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-style: italic;
+  font-weight: bold;
 }
 
 .input {
@@ -55,8 +66,10 @@
 .addButton {
   width: 52;
   height: 47;
-  font-size: 1rem;
+  align-items: center;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 30;
+  font-weight: bold;
   margin-top: 20;
   border-radius: 50px;
   cursor: pointer;
@@ -64,19 +77,21 @@
 }
 
 .addButtonStyle {
-  background-color: #035039;
+  background-color: #00ad17;
   color: white;
+  
 }
 
 .addButton:hover {
-  background-color: #45a049;
+  background-color: #267c31;
 }
 
 .logoutButton {
   width: 100;
   height: 47;
   padding: 10px 15px;
-  font-size: 1rem;
+  font-size: 20px;
+  font-weight: bold;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   border-radius: 50px;
   cursor: pointer;
@@ -85,42 +100,43 @@
 }
 
 .logoutButtonStyle {
-  background-color: #500303;
+  background-color: #ff0400;
   color: white;
   margin-top: 20px;
   justify-items: flex-end;
 }
 
 .logoutButton:hover {
-  background-color: #e53935;
+  background-color: #9b1c1c;
 }
 
 /* Lista de semestres cadastrados */
 .semestreList {
-  margin-top: 20px;
+  margin-top: 0px;
   display: flex;
   flex-direction: column;
 }
 
 .subTitle {
-  font-size: 30px;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-weight:600;
-  text-align: center;
+  font-size: 25px;
+  font-family:  Arial;
+  font-weight:300;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .semestreListItem {
   width: 262px;
   height: 29px;
+  margin-right: 35;
   padding-top: 10px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
   text-align: center;
   color: #fff;
   list-style-type: none;
   background-color: #000000;
   border: 2px solid #fff;
-  margin-bottom: 10px;
   cursor: pointer;
   border-radius: 50px;
   transition: background-color 0.3s ease;
