@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styles from "../styles/createCourse.module.css"; // Importa o CSS
 
-export default function createCourse() {
+export default function CreateCourse() {
     const router = useRouter();
     const [course, setCourse] = useState("");
 

@@ -1,6 +1,6 @@
-// pages/disciplina/[id].js (ou o arquivo que você estiver utilizando)
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic"; // Importe o dynamic do Next.js
 import styles from "../../styles/disciplina.module.css";
 
 // Importa os componentes das funcionalidades
@@ -8,7 +8,8 @@ import Notebook from "../../components/Notebook";
 import StudyPlan from "../../components/StudyPlan";
 import GradeCalculator from "../../components/GradeCalculator";
 
-export default function DisciplinaDetalhes() {
+// Desabilita a pré-renderização (SSR) para esta página
+const DisciplinaDetalhes = () => {
     const router = useRouter();
     const [nomeDisciplina, setNomeDisciplina] = useState("");
     const [error, setError] = useState("");
@@ -82,30 +83,39 @@ export default function DisciplinaDetalhes() {
 
             {/* Botões para alternar entre as funcionalidades */}
             <div className={styles.tabContainer}>
-                <button onClick={() => setActiveTab("notebook")}
+                <button
+                    onClick={() => setActiveTab("notebook")}
                     className={`${styles.tabButton} ${styles.tabButtonStyle}`}
                 >
                     Caderno Virtual
                 </button>
 
-                <button onClick={() => setActiveTab("studyPlan")}
-                    className={`${styles.tabButton} ${styles.tabButtonStyle}`}>
+                <button
+                    onClick={() => setActiveTab("studyPlan")}
+                    className={`${styles.tabButton} ${styles.tabButtonStyle}`}
+                >
                     Plano de Estudo
                 </button>
 
-                <button onClick={() => setActiveTab("gradeCalc")}
-                    className={`${styles.tabButton} ${styles.tabButtonStyle}`}>
+                <button
+                    onClick={() => setActiveTab("gradeCalc")}
+                    className={`${styles.tabButton} ${styles.tabButtonStyle}`}
+                >
                     Calculadora de Notas
                 </button>
-
             </div>
 
             {/* Renderização condicional do conteúdo da aba ativa */}
             <div className={styles.tabContent}>
-                {activeTab === "notebook" && <Notebook cadeiraId={localStorage.getItem("disciplinaId")} />}
+                {activeTab === "notebook" && (
+                    <Notebook cadeiraId={localStorage.getItem("disciplinaId")} />
+                )}
                 {activeTab === "studyPlan" && <StudyPlan />}
                 {activeTab === "gradeCalc" && <GradeCalculator />}
             </div>
         </div>
     );
-}
+};
+
+// Exporta o componente com SSR desabilitado
+export default dynamic(() => Promise.resolve(DisciplinaDetalhes), { ssr: false });
