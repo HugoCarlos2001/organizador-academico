@@ -8,6 +8,9 @@ module.exports = {
   images: {
       domains: ["res.cloudinary.com"], // Adicione o domínio do Cloudinary
   },
+  experimental: {
+    optimizeCss: false,
+  },
 };
 
 export default nextConfig;
