@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "../styles/calculator.module.css";
 
 export default function CalculadoraNotas() {
   // Estado para armazenar todas as avaliações cadastradas
@@ -67,7 +68,7 @@ export default function CalculadoraNotas() {
   // Tela para inserir/editar as notas de uma avaliação selecionada
   if (avaliacaoSelecionada) {
     return (
-      <div>
+      <div className={styles.container}>
         <button onClick={() => setAvaliacaoSelecionada(null)}>
           Voltar para Avaliações
         </button>
@@ -102,11 +103,11 @@ export default function CalculadoraNotas() {
 
   // Tela principal: cadastro de avaliação e listagem das avaliações já cadastradas
   return (
-    <div>
-      <h1>Gerenciador de Avaliações</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Calculadora de notas</h1>
 
-      <section>
-        <h2>Cadastrar Nova Avaliação</h2>
+      <section className={styles.sectionContainer}>
+        <h2 className={styles.subtitle}>Cadastrar Nova Avaliação</h2>
         <label>Nome da Avaliação:</label>
         <input
           type="text"
@@ -140,7 +141,7 @@ export default function CalculadoraNotas() {
       </section>
 
       <section>
-        <h2>Avaliações Cadastradas</h2>
+        <h2 className={styles.subtitle}>Avaliações Cadastradas</h2>
         {avaliacoes.length === 0 ? (
           <p>Nenhuma avaliação cadastrada.</p>
         ) : (
@@ -149,8 +150,8 @@ export default function CalculadoraNotas() {
               <li key={av.id}>
                 <strong>{av.nome}</strong> | Média: {av.media} | Avaliações:{" "}
                 {av.qtd}{" "}
-                <button onClick={() => setAvaliacaoSelecionada(av)}>
-                  Inserir/Editar Notas
+                <button onClick={() => setAvaliacaoSelecionada(av)} className={styles.buttonNote}>
+                  Ver notas
                 </button>
               </li>
             ))}
