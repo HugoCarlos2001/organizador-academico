@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Image from 'next/image';
 
 export default function NotebookUpload({ cadeiraId }) {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -174,10 +175,11 @@ export default function NotebookUpload({ cadeiraId }) {
                     {/* Preview da imagem */}
                     {previewUrl && (
                         <div>
-                            <img
+                            <Image 
                                 src={previewUrl}
                                 alt="Preview"
-                                style={{ maxWidth: "100%", maxHeight: "200px", marginTop: "10px" }}
+                                width={500} height={500}
+                                style={{ marginTop: "10px" }}
                             />
                         </div>
                     )}
@@ -206,10 +208,11 @@ export default function NotebookUpload({ cadeiraId }) {
                             {/* Exibição do arquivo */}
                             {upload.tipo === "png" || upload.tipo === "jpg" || upload.tipo === "jpeg" ? (
                                 <div>
-                                    <img
+                                    <Image 
                                         src={upload.nome} // Link da imagem
                                         alt="Preview"
-                                        style={{ maxWidth: "100%", maxHeight: "200px", marginTop: "10px" }}
+                                        width={500} height={500}
+                                        style={{marginTop: "10px" }}
                                     />
                                 </div>
                             ) : upload.tipo === "pdf" ? (

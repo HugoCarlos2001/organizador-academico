@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { auth } from "../lib/firebaseConfig";
-import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }) {
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 

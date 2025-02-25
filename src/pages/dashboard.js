@@ -34,6 +34,14 @@ export default function Dashboard() {
         }
     };
 
+    const handleLogout = () => {
+        // Remove o token do localStorage
+        localStorage.removeItem("token");
+    
+        // Redireciona para a página de login
+        router.push("/login");
+    };
+
     return (
         <div className={styles.dashboardContainer}>
             <p className={styles.title}>Organizador Acadêmico</p>
@@ -50,7 +58,7 @@ export default function Dashboard() {
                     </button>
 
                     {/* Botão de logout */}
-                    <button
+                    <button onClick={handleLogout}
                         className={`${styles.button} ${styles.logoutButton}`}
                     >
                         Sair

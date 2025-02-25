@@ -97,6 +97,14 @@ export default function Curso() {
         router.push(`/semestre/${semestre.id}`);
     };
 
+    const handleLogout = () => {
+        // Remove o token do localStorage
+        localStorage.removeItem("token");
+
+        // Redireciona para a página de login
+        router.push("/login");
+    };
+    
     return (
         <div className={styles.container}>
 
@@ -104,7 +112,7 @@ export default function Curso() {
 
                     <div className={styles.headerContainer}>
                         <h1 className={styles.title}>{selectedCurso?.nome}</h1>
-                        <button className={`${styles.logoutButton} ${styles.logoutButtonStyle}`}>
+                        <button onClick={handleLogout} className={`${styles.logoutButton} ${styles.logoutButtonStyle}`}>
                             Sair
                         </button>
                     </div>
