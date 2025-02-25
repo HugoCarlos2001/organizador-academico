@@ -1,106 +1,108 @@
 .dashboardContainer {
-    min-height: 100vh;
-    background-color: #B5AAAA;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-  }
+  min-height: 100vh;
+  background-color: #B5AAAA;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+}
 
-  .title {
-    font-size: 70;
-    font-family: 'Segoe UI';
-    color: black;
-    margin-top: -70;
-    margin-bottom: 70;
-  }
-  
-  .dashboardCard {
-    background-color: #D9D9D9;
-    align-self: center;
-    border: 3px solid #000000;
-    border-color: black;
-    border-radius: 50px;
-    width: 804;
-    height: 505;
-    text-align: center;
-  }
-  
-  /* Título */
-  .titleCard {
-    font-size: 2rem;
-    font-family: 'Segoe UI';
-    color: black;
-    margin-top: 60;
-  }
-  
-  /* Botões */
-  .button {
-    width: 459;
-    height: 77;
-    padding: 1rem;
-    text-align: center;
-    border-radius: 25px;
-    font-family: 'Segoe UI';
-    font-size: 30;
-    font-style: 'bold';
-    transition: all 0.3s ease;
-    margin-top: 60;
-    align-items: center;
-  }
-  
-  /* Botão de visão de curso */
-  .viewCourseButton {
-    background-color: #030350; /* Azul */
-    align-self: center;
-    color: white;
-  }
-  
-  .viewCourseButton:hover {
-    background-color: #2f2f8b; /* Azul mais escuro */
-  }
-  
-  /* Botão de logout */
-  .logoutButton {
-    background-color: #500303; /* Vermelho */
-    color: white;
-  }
-  
-  .logoutButton:hover {
-    background-color: #b82d2d; /* Vermelho mais escuro */
-  }
+.title {
+  font-size: 50;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: black;
+}
 
-  /* Estilos específicos para a página de curso */
+.dashboardCard {
+  display: flex;
+  flex-direction: column;
+  background-color: #D9D9D9;
+  align-self: center;
+  border: 3px solid #000000;
+  border-color: black;
+  border-radius: 50px;
+  width: 402;
+  height: 270;
+  text-align: center;
+}
+
+/* Título */
+.titleCard {
+  font-size: 2rem;
+  font-family: 'Segoe UI';
+  font-weight: 400;
+  color: black;
+}
+
+/* Botões */
+.button {
+  margin-top: 20;
+  border-radius: 15;
+  width: 172;
+  height: 42;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Botão de visão de curso */
+.viewCourseButton {
+  background-color: #030350;
+  align-self: center;
+  color: white;
+}
+
+.viewCourseButton:hover {
+  background-color: #2f2f8b;
+  /* Azul mais escuro */
+}
+
+/* Botão de logout */
+.logoutButton {
+  background-color: #500303;
+  align-self: center;
+  color: white;
+}
+
+.logoutButton:hover {
+  background-color: #b82d2d;
+  /* Vermelho mais escuro */
+}
+
+/* Estilos específicos para a página de curso */
 .semestreInput {
-    border: 2px solid #2563eb; /* Cor do contorno */
-    border-radius: 8px;
-    padding: 0.5rem;
-    width: 80%;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
-  
-  .addButton {
-    background-color: #2563eb; /* Azul */
-    color: white;
-    padding: 0.75rem;
-    border-radius: 8px;
-    width: 80%;
-    cursor: pointer;
-  }
-  
-  .addButton:hover {
-    background-color: #1d4ed8; /* Azul mais escuro */
-  }
-  
-  .semestreList {
-    margin-top: 1rem;
-  }
-  
-  .semestreItem {
-    font-size: 1.1rem;
-    color: #4b5563;
-  }
-  
-  
+  border: 2px solid #2563eb;
+  /* Cor do contorno */
+  border-radius: 8px;
+  padding: 0.5rem;
+  width: 80%;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.addButton {
+  background-color: #2563eb;
+  /* Azul */
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  width: 80%;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #1d4ed8;
+  /* Azul mais escuro */
+}
+
+.semestreList {
+  margin-top: 1rem;
+}
+
+.semestreItem {
+  font-size: 1.1rem;
+  color: #4b5563;
+}
