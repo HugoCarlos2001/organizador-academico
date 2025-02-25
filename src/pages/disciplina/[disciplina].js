@@ -102,7 +102,7 @@ export default function DisciplinaDetalhes() {
 
             {/* Renderização condicional do conteúdo da aba ativa */}
             <div className={styles.tabContent}>
-                {activeTab === "notebook" && <Notebook />}
+                {activeTab === "notebook" && <Notebook cadeiraId={localStorage.getItem("disciplinaId")} />}
                 {activeTab === "studyPlan" && <StudyPlan />}
                 {activeTab === "gradeCalc" && <GradeCalculator />}
             </div>
