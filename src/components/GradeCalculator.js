@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "../styles/calculator.module.css";
 
 export default function CalculadoraNotas() {
   // Estado para armazenar todas as avaliações cadastradas
@@ -67,7 +68,7 @@ export default function CalculadoraNotas() {
   // Tela para inserir/editar as notas de uma avaliação selecionada
   if (avaliacaoSelecionada) {
     return (
-      <div>
+      <div className={styles.container}>
         <button onClick={() => setAvaliacaoSelecionada(null)}>
           Voltar para Avaliações
         </button>
@@ -102,10 +103,10 @@ export default function CalculadoraNotas() {
 
   // Tela principal: cadastro de avaliação e listagem das avaliações já cadastradas
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Gerenciador de Avaliações</h1>
 
-      <section>
+      <section className={styles.sectionContainer}>
         <h2>Cadastrar Nova Avaliação</h2>
         <label>Nome da Avaliação:</label>
         <input

@@ -9,6 +9,12 @@
     padding: 10px;
 }
 
+.sectionContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 .tittle {
     font-size: 2rem;
     font-weight: bold;

@@ -1,5 +1,6 @@
 // components/NotebookUpload.js
 import { useState } from "react";
+import styles from "../styles/notebook.module.css";
 
 export default function NotebookUpload() {
   // Estado para o arquivo selecionado, URL do preview, descrição e uploads realizados
@@ -47,7 +48,7 @@ export default function NotebookUpload() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Caderno de Uploads</h2>
       <div>
         <input
