@@ -19,7 +19,7 @@ export default function createCourse() {
     }
 
     return (
-        <div className={styles.Container}>
+        <div className={styles.container}>
             <p className={styles.title}>Organizador Acadêmico</p>
 
             <div className={styles.dashboardCard}>
