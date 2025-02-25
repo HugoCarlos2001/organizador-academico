@@ -13,25 +13,49 @@ export default function Login() {
     const handleLogin = async () => {
         setLoading(true);
         setError("");
-
+    
         try {
-            const response = await fetch("https://organizador-academico-be.onrender.com/auth/login", {
+            // Faz o login
+            const loginResponse = await fetch("https://organizador-academico-be.onrender.com/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ email: email, senha: password }),
             });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || "Erro ao fazer login");
+    
+            const loginData = await loginResponse.json();
+    
+            if (!loginResponse.ok) {
+                throw new Error(loginData.message || "Erro ao fazer login");
             }
-
-            // Armazenar o token e redirecionar para o dashboard
-            localStorage.setItem("token", data.token);
-            router.push("/dashboard");
+    
+            // Armazenar o token
+            localStorage.setItem("token", loginData.token);
+    
+            // Verifica se o usuário já tem um curso cadastrado
+            const cursosResponse = await fetch("https://organizador-academico-be.onrender.com/cursos", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.token,
+                },
+            });
+    
+            const cursosData = await cursosResponse.json();
+    
+            if (!cursosResponse.ok) {
+                throw new Error(cursosData.message || "Erro ao verificar cursos");
+            }
+    
+            // Se o usuário não tiver cursos, redireciona para a página de criação de curso
+            if (cursosData.length === 0) {
+                router.push("/createCurso");
+            } else {
+                // Caso contrário, redireciona para o dashboard
+                router.push("/dashboard");
+            }
+    
         } catch (error) {
             setError(error.message);
         } finally {
