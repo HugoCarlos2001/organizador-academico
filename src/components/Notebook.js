@@ -49,7 +49,7 @@ export default function NotebookUpload() {
 
   return (
     <div className={styles.container}>
-      <h2>Caderno de Uploads</h2>
+      <h2 className={styles.title}>Caderno de Uploads</h2>
       <div>
         <input
           type="file"
@@ -57,6 +57,7 @@ export default function NotebookUpload() {
           onChange={handleFileChange}
         />
       </div>
+
       {selectedFile && (
         <div style={{ marginTop: "10px", padding: "10px", border: "1px solid #ccc" }}>
           <p>
@@ -64,6 +65,7 @@ export default function NotebookUpload() {
           </p>
           {/* Exibe o preview caso exista */}
           {previewUrl && (
+
             <div>
               <img
                 src={previewUrl}
@@ -87,17 +89,11 @@ export default function NotebookUpload() {
         </div>
       )}
       <div style={{ marginTop: "20px" }}>
-        <h3>Arquivos Enviados:</h3>
+        <h3 className={styles.subtitle}>Arquivos Enviados:</h3>
         {uploads.length === 0 && <p>Nenhum arquivo enviado.</p>}
         {uploads.map((upload, index) => (
-          <div
-            key={index}
-            style={{
-              border: "1px solid #ccc",
-              margin: "8px 0",
-              padding: "8px"
-            }}
-          >
+
+          <div key={index} className={styles.sectionFile}>
             <p>
               <strong>{upload.file.name}</strong>
             </p>
@@ -109,7 +105,9 @@ export default function NotebookUpload() {
               />
             )}
             <p>{upload.description}</p>
-            <button onClick={() => handleDeleteUpload(index)}>Excluir</button>
+            <button onClick={() => handleDeleteUpload(index)} className={styles.buttonDelete}>
+              Excluir
+            </button>
           </div>
         ))}
       </div>

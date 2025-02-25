@@ -133,7 +133,7 @@ export default function StudyPlan() {
       </div>
 
       {/* Exibição das Atividades do Dia Selecionado */}
-      <h3>Atividades para {diaSelecionado}</h3>
+      <h3 className={styles.subtitle}>Atividades para {diaSelecionado}:</h3>
       <div>
         <ul className={styles.view}>
           {sortedAtividades.map((item) => (
