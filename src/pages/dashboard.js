@@ -41,7 +41,6 @@ export default function Dashboard() {
             <div className={styles.dashboardCard}>
                 <h1 className={styles.titleCard}>Seja Bem-vindo!</h1>
 
-                <div className="flex flex-col items-center gap-4">
                     {/* Botão para visão de curso */}
                     <button
                         onClick={handleNavigateToCourse}
@@ -56,7 +55,6 @@ export default function Dashboard() {
                     >
                         Sair
                     </button>
-                </div>
             </div>
         </div>
     );
