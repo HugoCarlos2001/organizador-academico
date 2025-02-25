@@ -15,19 +15,6 @@ export default function SemestreDetalhes() {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        const id = localStorage.getItem("semestreId");
-        const nome = localStorage.getItem("semestreNome");
-
-        if (id && nome) {
-            setSemestreId(id);
-            setSemestreNome(nome);
-        } else {
-            setError("Semestre não encontrado.");
-            router.push("/curso");
-        }
-    }, [router]);
-
-    useEffect(() => {
         if (!semestreId) return;
 
         fetch(`https://organizador-academico-be.onrender.com/cadeiras/semestre/${semestreId}`, {
@@ -46,6 +33,48 @@ export default function SemestreDetalhes() {
                 }
             })
             .catch(() => setError("Erro ao carregar disciplinas"));
+    }, [semestreId]);
+    
+    useEffect(() => {
+        const id = localStorage.getItem("semestreId");
+        const nome = localStorage.getItem("semestreNome");
+
+        if (id && nome) {
+            setSemestreId(id);
+            setSemestreNome(nome);
+        } else {
+            setError("Semestre não encontrado.");
+            router.push("/curso");
+        }
+    }, [router]);
+
+    useEffect(() => {
+        if (!semestreId) return;
+    
+        // Carregar eventos
+        fetch(`https://organizador-academico-be.onrender.com/eventos/semestre/${semestreId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.token,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.error) {
+                    setError(data.error);
+                } else {
+                    // Mapear os eventos para o formato esperado
+                    const formattedEvents = data.map(event => ({
+                        id: event.id,
+                        title: event.titulo,
+                        date: new Date(event.data), // Converte a string ISO para Date
+                        formattedDate: new Date(event.data).toLocaleDateString("pt-BR", { timeZone: "UTC" }), // Formata a data no fuso UTC
+                    }));
+                    setEvents(formattedEvents);
+                }
+            })
+            .catch(() => setError("Erro ao carregar eventos"));
     }, [semestreId]);
 
     const gerarCodigoDisciplina = (nome) => {
@@ -126,54 +155,119 @@ export default function SemestreDetalhes() {
         }
     };
 
-    // Ao selecionar uma data, cria um evento armazenando a data original para ordenação
-    const handleDateSelect = (selectedDate) => {
+    const handleDateSelect = async (selectedDate) => {
         setDate(selectedDate);
+    
         const descricao = prompt("Insira a descrição ou nome do evento associado à data:");
-        if (descricao) {
-            const novoEvento = {
-                title: descricao,
-                // Armazena a data como objeto para facilitar a ordenação
-                date: selectedDate,
-                formattedDate: selectedDate.toLocaleDateString("pt-BR"),
-            };
-            setEvents((prevEvents) => [...prevEvents, novoEvento]);
+        if (!descricao) return;
+    
+        const novoEvento = {
+            title: descricao,
+            date: selectedDate,
+            formattedDate: selectedDate.toLocaleDateString("pt-BR", { timeZone: "UTC" }), // Formata a data no fuso UTC
+        };
+    
+        try {
+            const response = await fetch(
+                `https://organizador-academico-be.onrender.com/eventos/semestre/${semestreId}`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.token,
+                    },
+                    body: JSON.stringify({
+                        titulo: novoEvento.title,
+                        data: selectedDate.toISOString(), // Envia a data no formato ISO
+                        descricao: "",
+                    }),
+                }
+            );
+    
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || "Erro ao adicionar evento");
+            }
+    
+            // Adiciona o novo evento ao estado
+            setEvents((prevEvents) => [...prevEvents, { ...novoEvento, id: data.id }]);
+        } catch (error) {
+            setError(error.message);
         }
     };
 
     // Função para editar evento
-    const handleEditEvent = (index) => {
+    const handleEditEvent = async (index) => {
         const novoTitulo = prompt("Edite o título do evento:", events[index].title);
-        if (novoTitulo !== null && novoTitulo.trim() !== "") {
-            setEvents((prevEvents) => {
-                const updatedEvents = [...prevEvents];
-                updatedEvents[index].title = novoTitulo;
-                return updatedEvents;
+        if (!novoTitulo) return;
+    
+        try {
+            const eventoAtual = events[index]; // Pega o evento atual
+            const response = await fetch(
+                `https://organizador-academico-be.onrender.com/eventos/${eventoAtual.id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.token,
+                    },
+                    body: JSON.stringify({
+                        titulo: novoTitulo, // Novo título
+                        descricao: eventoAtual.descricao || "", // Descrição atual ou string vazia
+                        data: eventoAtual.date.toISOString(), // Data atual no formato ISO
+                    }),
+                }
+            );
+    
+            if (!response.ok) throw new Error("Erro ao editar evento");
+    
+            // Atualiza o estado local com o novo título
+            setEvents((prev) => {
+                const updated = [...prev];
+                updated[index].title = novoTitulo;
+                return updated;
             });
+        } catch (error) {
+            setError(error.message);
         }
     };
+    
 
     // Função para excluir evento
-    const handleDeleteEvent = (index) => {
-        if (confirm("Deseja realmente excluir este evento?")) {
+    const handleDeleteEvent = async (index) => {
+        if (!confirm("Deseja realmente excluir este evento?")) return;
+    
+        try {
+            const response = await fetch(
+                `https://organizador-academico-be.onrender.com/eventos/${events[index].id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.token,
+                    },
+                }
+            );
+    
+            if (!response.ok) throw new Error("Erro ao excluir evento");
+    
             setEvents((prevEvents) => prevEvents.filter((_, i) => i !== index));
+        } catch (error) {
+            setError(error.message);
         }
     };
+    
 
     // Cria uma cópia ordenada dos eventos pela data
-    const sortedEvents = [...events].sort((a, b) => a.date - b.date);
+    const sortedEvents = [...events].sort((a, b) => new Date(a.data) - new Date(b.data));
 
     return (
         <div className={styles.container}>
-
             <div className={styles.form}>
-
                 <div className={styles.headerContainer}>
-
                     <h1 className={styles.title}>
                         {semestreNome || "Carregando..."}
                     </h1>
-
                     <button
                         onClick={handleDeleteSemestre}
                         className={`${styles.deleteButton} ${styles.deleteButtonStyle}`}
@@ -186,13 +280,10 @@ export default function SemestreDetalhes() {
                     >
                         Voltar
                     </button>
-
                 </div>
 
                 <div className={styles.inputForms}>
-
                     <div className={styles.statusForm}>
-
                         <p className={styles.inputTitle}>Cadastrar disciplinas</p>
                         <input
                             type="text"
@@ -201,9 +292,7 @@ export default function SemestreDetalhes() {
                             placeholder="Nome da disciplina"
                             className={styles.input}
                         />
-
                     </div>
-
                     <button
                         onClick={handleAddDisciplina}
                         className={`${styles.addButton} ${styles.addButtonStyle}`}
@@ -237,10 +326,15 @@ export default function SemestreDetalhes() {
 
             {/* Calendário simples com react-calendar */}
             <div>
-                <Calendar
-                    onChange={handleDateSelect}
-                    value={date}
-                />
+            <Calendar
+                onChange={handleDateSelect}
+                value={date}
+                tileContent={({ date }) => {
+                    const dateString = date.toISOString().split("T")[0]; // Compara as datas no formato ISO
+                    const hasEvent = events.some(event => event.date.toISOString().split("T")[0] === dateString);
+                    return hasEvent ? <span>📅</span> : null;
+                }}
+            />
                 {/* Exibindo eventos cadastrados (ordenados por data) com opções de editar e excluir */}
                 <div>
                     <h3 className={styles.inputTitle}>Eventos cadastrados:</h3>
